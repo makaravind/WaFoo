@@ -1,9 +1,12 @@
 import React from 'react';
 
-function Water({className}) {
+function Water({glasses, onAdd, onRemove}) {
    return (
-       <div className={className}>
-          <h1>This is water component</h1>
+       <div>
+          <h1>number of glasses drank, {glasses}</h1>
+           {glasses > 0 && <p>{glasses * 250} ml</p>}
+           <button onClick={onAdd}>+</button>
+           <button onClick={onRemove}>-</button>
        </div>
    )
 }
