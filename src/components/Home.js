@@ -1,15 +1,29 @@
 import React, {Component} from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
-import {Button} from '../styled_components/button';
+
+import {StyledWrapper} from '../styled_components/Wrapper';
+
+// import { StyledWater} from '../styled_components/Water'
+import Water from './Water';
+import Calorie from './Calorie';
 
 
 class Home extends Component {
 
+    state = {
+        glasses: 0,
+        calories: 0
+    };
+
     render() {
         return (
             <div>
-                <Button primary>Normal Button</Button>
-                <RaisedButton label="Default"/>
+                <StyledWrapper>
+                   <Water/>
+                </StyledWrapper>
+
+                <StyledWrapper>
+                   <Calorie/>
+                </StyledWrapper>
             </div>
         )
     }
