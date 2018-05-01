@@ -5,7 +5,8 @@ import {StyledWrapper} from '../styled_components/Wrapper';
 // import { StyledWater} from '../styled_components/Water'
 import Water from './Water';
 import Calorie from './Calorie';
-
+import NavBar from './NavBar';
+import Logs from './Logs';
 
 class Home extends Component {
 
@@ -13,13 +14,38 @@ class Home extends Component {
     CONST_TYPE_CALORIE = 'calorie';
     CONST_ACTION_DECREMENT = 'decrement';
     CONST_ACTION_INCREMENT = 'increment';
+    CONST_OPTIONS = {
+        NOT_SELECTED : 0,
+        SHOW_LOGS: 1
+    };
+
 
     state = {
         glasses: 0,
         calories: 0,
         logs: [],
         error: '',
+        navBarOptionSelected: this.CONST_OPTIONS.NOT_SELECTED
     };
+
+    performSelectedNavBarAction = () => {
+        console.log('action selected by user ', this.state.navBarOptionSelected);
+        switch(this.state.navBarOptionSelected) {
+            case this.CONST_OPTIONS.SHOW_LOGS:
+                this.setState(() => ({
+                    showLogs: true,
+                    error: ''
+                }));
+                break;
+            default:
+                this.setState({error: 'Not sure want to do with that!'});
+
+        }
+    };
+
+    handleNavBarOptionChanged = (event, value) => this.setState(
+        () => ({navBarOptionSelected: value}),
+        this.performSelectedNavBarAction);
 
     handleOnWaterGlassesIncrement = () => {
         console.log('incrementing number of glasses drank');
@@ -63,15 +89,26 @@ class Home extends Component {
     };
 
     logAction = (log) => {
+        const _log = {...log, timestamp: Date.now()};
         this.setState((currentState) => {
-            return {...currentState, log}
+            return {logs: [...currentState.logs, _log]}
         });
+    };
+
+    handleCloseShowLogs = () => {
+      this.setState({navBarOptionSelected: this.CONST_OPTIONS.NOT_SELECTED});
+    };
+
+    isShowLogs = () => {
+        return this.state.navBarOptionSelected === this.CONST_OPTIONS.SHOW_LOGS;
     };
 
     render() {
         return (
             <div>
-                {this.state.error}
+                {/*{this.state.error}*/}
+                {this.isShowLogs() && <Logs logs={this.state.logs} onClose={this.handleCloseShowLogs} open={this.isShowLogs}/>}
+                <NavBar value={this.state.navBarOptionSelected} onOptionSelected={this.handleNavBarOptionChanged}/>
                 <StyledWrapper>
                     <Water
                         glasses={this.state.glasses}
