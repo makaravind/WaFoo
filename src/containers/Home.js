@@ -4,7 +4,7 @@ import Layout from '../global/Layout';
 import Water from './Water';
 import Calorie from './Calorie';
 import NavBar from '../components/NavBar';
-import Logs from '../components/Logs';
+import Logs from './Logs';
 
 class Home extends Component {
 

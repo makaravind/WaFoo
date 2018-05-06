@@ -3,17 +3,10 @@ import FlatButton from 'material-ui/FlatButton';
 import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Avatar from 'material-ui/Avatar';
-import Divider from 'material-ui/Divider';
-import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
-import RaisedButton from 'material-ui/RaisedButton';
-import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import React from 'react';
 
-const styles = {
-    radioButton: {
-        marginTop: 16,
-    },
-};
+const waterIcon = require('../res/images/water.svg');
+const foodIcon = require('../res/images/food.svg');
 
 class Logs extends React.Component {
 
@@ -21,34 +14,37 @@ class Logs extends React.Component {
         const logList = [];
         const seenTimestamps = [];
         const convertToSuitableDateString = (timestamp) => new Date(timestamp).toDateString();
-        const getLogStringByAction = (log) => {
-            let verbs = {};
+        const getInfoByAction = (log) => {
+            let info = {};
             switch(log.type) {
                 case "water":
                     log.action === 'increment' ?
-                        verbs = {'verb': 'Drank', 'metric': 'ml', 'performedBy': 'glass(s)'} :
-                        verbs = {'verb': 'Lost', 'metric': 'ml', 'performedBy': 'glass(s)'};
+                        info = {'verb': 'Drank', 'metric': 'ml', 'performedBy': 'glass(s)'} :
+                        info = {'verb': 'Lost', 'metric': 'ml', 'performedBy': 'glass(s)'};
+                    info.icon = waterIcon;
                     break;
                 case "calorie":
                     log.action === 'increment' ?
-                        verbs = {'verb': 'Gained', 'metric': '', 'performedBy': 'calories'} :
-                        verbs = {'verb': 'Burnt', 'metric': '', 'performedBy': 'calories'};
+                        info = {'verb': 'Gained', 'metric': '', 'performedBy': 'calories'} :
+                        info = {'verb': 'Burnt', 'metric': '', 'performedBy': 'calories'};
+                    info.icon = foodIcon;
                     break;
                 default:
                     return {};
             }
-            return verbs;
+            return info;
         };
+        const isNewDateLog = (_log) => !seenTimestamps.find((l) => convertToSuitableDateString(_log.timestamp) === convertToSuitableDateString(l));
         for (let i = 0; this.props.logs.length > i; i++) {
             const _log = this.props.logs[i];
-            if(!seenTimestamps.find((l) => convertToSuitableDateString(_log.timestamp) === convertToSuitableDateString(l))) {
+            if(isNewDateLog(_log)) {
                 logList.push(<Subheader>{`${convertToSuitableDateString(_log.timestamp)}`}</Subheader>);
                 seenTimestamps.push(convertToSuitableDateString(_log.timestamp));
             }
-            const {verb, metric, performedBy} = getLogStringByAction(_log);
-            logList.push(<ListItem
+            const {verb, metric, performedBy, icon} = getInfoByAction(_log);
+            logList.push(<ListItem key={i}
                 primaryText={`${verb} ${_log.by} ${performedBy}`}
-                leftAvatar={<Avatar src="images/ok-128.jpg"/>}
+                leftAvatar={<Avatar src={icon}/>}
             />);
         }
         return logList;
