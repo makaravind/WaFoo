@@ -22,4 +22,5 @@ missing, feel free to pull-request ❤
 
 # Sample App Images
 
-[![IMAGE ALT TEXT HERE](https://drive.google.com/file/d/10ckgkFAfxQ9XfO2vWrtj0gaSS2MRHfW-/view?usp=sharing)]
+<img src="https://drive.google.com/uc?id=10ckgkFAfxQ9XfO2vWrtj0gaSS2MRHfW" 
+alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" />
