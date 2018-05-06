@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import Home from './components/Home';
+import Home from './containers/Home';
 
 const App = () => {
     return (<MuiThemeProvider>

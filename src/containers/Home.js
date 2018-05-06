@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
 
-import {StyledWrapper} from '../styled_components/Wrapper';
-
-// import { StyledWater} from '../styled_components/Water'
+import Layout from '../global/Layout';
 import Water from './Water';
 import Calorie from './Calorie';
-import NavBar from './NavBar';
-import Logs from './Logs';
+import NavBar from '../components/NavBar';
+import Logs from '../components/Logs';
 
 class Home extends Component {
 
@@ -99,32 +97,27 @@ class Home extends Component {
       this.setState({navBarOptionSelected: this.CONST_OPTIONS.NOT_SELECTED});
     };
 
-    isShowLogs = () => {
+    doShowLogs = () => {
         return this.state.navBarOptionSelected === this.CONST_OPTIONS.SHOW_LOGS;
     };
 
     render() {
         return (
-            <div>
+            <Layout>
                 {/*{this.state.error}*/}
-                {this.isShowLogs() && <Logs logs={this.state.logs} onClose={this.handleCloseShowLogs} open={this.isShowLogs}/>}
+                {this.doShowLogs() && <Logs logs={this.state.logs} onClose={this.handleCloseShowLogs} open={this.doShowLogs}/>}
                 <NavBar value={this.state.navBarOptionSelected} onOptionSelected={this.handleNavBarOptionChanged}/>
-                <StyledWrapper>
-                    <Water
-                        glasses={this.state.glasses}
-                        onAdd={this.handleOnWaterGlassesIncrement}
-                        onRemove={this.handleOnWaterGlassesDecrement}
-                    />
-                </StyledWrapper>
-
-                <StyledWrapper>
-                    <Calorie
-                        calories={this.state.calories}
-                        onGained={this.handleOnCalorieInTake}
-                        onBurn={this.handleOnCalorieBurnt}
-                    />
-                </StyledWrapper>
-            </div>
+                <Water
+                    glasses={this.state.glasses}
+                    onAdd={this.handleOnWaterGlassesIncrement}
+                    onRemove={this.handleOnWaterGlassesDecrement}
+                />
+                <Calorie
+                    calories={this.state.calories}
+                    onGained={this.handleOnCalorieInTake}
+                    onBurn={this.handleOnCalorieBurnt}
+                />
+            </Layout>
         )
     }
 }
