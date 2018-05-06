@@ -21,6 +21,5 @@ This is a learner app which meant to provide best practices, and how to use libr
 missing, feel free to pull-request ❤
 
 # Sample App Images
-
-<img src="https://drive.google.com/uc?id=10ckgkFAfxQ9XfO2vWrtj0gaSS2MRHfW" 
-alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" />
+ - https://drive.google.com/open?id=10ckgkFAfxQ9XfO2vWrtj0gaSS2MRHfW-
+ - https://drive.google.com/open?id=1IsJLnclb5gGzCLtfyOaWNRVRXo2qTMDp
