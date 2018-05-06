@@ -108,11 +108,28 @@ class Home extends Component {
         return this.state.navBarOptionSelected === Options.SHOW_LOGS;
     };
 
+    calculateInitWaterCalorieStateFromSavedLogs = (savedLogs) => {
+        return savedLogs.reduce((acc, e) => {
+            let _value = 0;
+            if (e.action === action.INCREMENT) _value = e.by;
+            else _value = -e.by;
+            if (e.type === type.WATER) acc.water += _value;
+            if (e.type === type.CALORIE) acc.calories += _value;
+            return acc;
+        }, {'water': 0, 'calories': 0})
+    };
+
     componentDidMount() {
-        const savedLogs = JSON.parse(localStorage.getItem('log'));
+        const savedLogs = JSON.parse(localStorage.getItem('log')).sort((a, b) => a.timestamp > b.timestamp);
+        const initWaterCalorieState = this.calculateInitWaterCalorieStateFromSavedLogs(savedLogs);
         if (this.state.logs.length <= 0 && savedLogs.length > 0) {
             this.setState((currentState) => {
-                return {logs: savedLogs, error: 'Loaded logs from storage'};
+                return {
+                    logs: savedLogs,
+                    glasses: initWaterCalorieState.water,
+                    calories: initWaterCalorieState.calories,
+                    error: 'Loaded logs from storage',
+                };
             });
         }
     }
