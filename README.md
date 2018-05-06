@@ -10,6 +10,8 @@ about your health. You are your boss 😎
 - Material-UI
 - Local Storage
 
+> And yeah, latest and greatest, CSS-GRID for layouts (I may have over used it, But I love it ❤)
+
 # Set up
 - cd wafoo
 - yarn start / npm start
