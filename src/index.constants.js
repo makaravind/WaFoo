@@ -20,7 +20,8 @@ export const type = {
 
 export const action = {
     DECREMENT: 'decrement',
-    INCREMENT: 'increment'
+    INCREMENT: 'increment',
+    NO_ERROR: '',
 };
 
 export const Options = {

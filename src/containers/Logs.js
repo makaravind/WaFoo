@@ -58,6 +58,11 @@ class Logs extends React.Component {
                 primary={true}
                 onClick={this.props.onClose}
             />,
+            <FlatButton
+                label="Clear Logs"
+                primary={false}
+                onClick={this.props.onClear}
+            />
         ];
 
         return (

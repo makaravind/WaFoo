@@ -18,11 +18,11 @@ class Home extends Component {
 
     performSelectedNavBarAction = () => {
         console.log('action selected by user ', this.state.navBarOptionSelected);
-        switch(this.state.navBarOptionSelected) {
+        switch (this.state.navBarOptionSelected) {
             case Options.SHOW_LOGS:
                 this.setState(() => ({
                     showLogs: true,
-                    error: ''
+                    error: action.NO_ERROR
                 }));
                 break;
             default:
@@ -38,9 +38,9 @@ class Home extends Component {
     handleOnWaterGlassesIncrement = () => {
         console.log('incrementing number of glasses drank');
         this.setState((currentState) => ({
-            glasses: currentState.glasses + 1, error: ''
+            glasses: currentState.glasses + 1, error: action.NO_ERROR
         }));
-        this.logAction({type: type.WATER, action: action.INCREMENT, by: 1});
+        this.logTheAction({type: type.WATER, action: action.INCREMENT, by: 1});
     };
 
     handleOnWaterGlassesDecrement = () => {
@@ -52,7 +52,7 @@ class Home extends Component {
                 newState = {error: 'Please, Do not dehydrate!'};
             return newState;
         });
-        this.logAction({type: type.WATER, action: action.DECREMENT, by: 1});
+        this.logTheAction({type: type.WATER, action: action.DECREMENT, by: 1});
     };
 
     handleOnCalorieInTake = (calories) => {
@@ -61,10 +61,10 @@ class Home extends Component {
             calories >= 0 &&
             this.setState((currentstate) => ({
                 calories: currentstate.calories + calories,
-                error: ''
+                error: action.NO_ERROR
             }));
         }
-        this.logAction({type: type.CALORIE, action: action.INCREMENT, by: calories});
+        this.logTheAction({type: type.CALORIE, action: action.INCREMENT, by: calories});
     };
 
     handleOnCalorieBurnt = (calories) => {
@@ -76,34 +76,59 @@ class Home extends Component {
                 newState = {error: 'hey c\'on, do not burn more than you eat'};
             return newState;
         });
-        this.logAction({type: type.CALORIE, action: action.DECREMENT, by: calories});
+        this.logTheAction({type: type.CALORIE, action: action.DECREMENT, by: calories});
     };
 
-    logAction = (log) => {
+    logTheAction = (log) => {
         const _log = {...log, timestamp: Date.now()};
         this.setState((currentState) => {
             return {logs: [...currentState.logs, _log]}
+        }, () => {
+            // on save success
+            localStorage.setItem('log', JSON.stringify(this.state.logs));
         });
     };
 
     handleCloseShowLogs = () => {
-      this.setState({navBarOptionSelected: Options.NOT_SELECTED});
+        this.setState({navBarOptionSelected: Options.NOT_SELECTED});
+    };
+
+    handleClearLogs = () => {
+        this.state.logs.length > 0 &&
+        this.setState({
+            logs: [],
+            error: 'Cleared All Logs'
+        }, () => {
+            // on local clear success
+            localStorage.setItem('log', JSON.stringify([]));
+        })
     };
 
     doShowLogs = () => {
         return this.state.navBarOptionSelected === Options.SHOW_LOGS;
     };
 
+    componentDidMount() {
+        const savedLogs = JSON.parse(localStorage.getItem('log'));
+        if (this.state.logs.length <= 0 && savedLogs.length > 0) {
+            this.setState((currentState) => {
+                return {logs: savedLogs, error: 'Loaded logs from storage'};
+            });
+        }
+    }
+
     render() {
         return (
             <Layout>
                 <Snackbar
-                    open={this.state.error}
+                    open={this.state.error !== action.NO_ERROR}
                     message={this.state.error}
                     autoHideDuration={4000}
                     style={{backgroundColor: Colors.PRIMARY}}
                 />
-                {this.doShowLogs() && <Logs logs={this.state.logs} onClose={this.handleCloseShowLogs} open={this.doShowLogs}/>}
+                {this.doShowLogs() &&
+                <Logs logs={this.state.logs} onClear={this.handleClearLogs} onClose={this.handleCloseShowLogs}
+                      open={this.doShowLogs}/>}
                 <NavBar value={this.state.navBarOptionSelected} onOptionSelected={this.handleNavBarOptionChanged}/>
                 <Water
                     glasses={this.state.glasses}
