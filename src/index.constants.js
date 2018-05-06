@@ -13,3 +13,17 @@ export const settings = {
     volumePerDay: 1000,
     metric: 'ml'
 };
+export const type = {
+    WATER: 'water',
+    CALORIE: 'calorie',
+};
+
+export const action = {
+    DECREMENT: 'decrement',
+    INCREMENT: 'increment'
+};
+
+export const Options = {
+    NOT_SELECTED : 0,
+    SHOW_LOGS: 1
+};

@@ -1,35 +1,25 @@
 import React, {Component} from 'react';
-
+import Snackbar from 'material-ui/Snackbar';
 import Layout from '../global/Layout';
 import Water from './Water';
 import Calorie from './Calorie';
 import NavBar from '../components/NavBar';
 import Logs from './Logs';
+import {action, Colors, Options, type} from "../index.constants";
 
 class Home extends Component {
-
-    CONST_TYPE_WATER = 'water';
-    CONST_TYPE_CALORIE = 'calorie';
-    CONST_ACTION_DECREMENT = 'decrement';
-    CONST_ACTION_INCREMENT = 'increment';
-    CONST_OPTIONS = {
-        NOT_SELECTED : 0,
-        SHOW_LOGS: 1
-    };
-
-
     state = {
         glasses: 0,
         calories: 0,
         logs: [],
         error: '',
-        navBarOptionSelected: this.CONST_OPTIONS.NOT_SELECTED
+        navBarOptionSelected: Options.NOT_SELECTED
     };
 
     performSelectedNavBarAction = () => {
         console.log('action selected by user ', this.state.navBarOptionSelected);
         switch(this.state.navBarOptionSelected) {
-            case this.CONST_OPTIONS.SHOW_LOGS:
+            case Options.SHOW_LOGS:
                 this.setState(() => ({
                     showLogs: true,
                     error: ''
@@ -50,7 +40,7 @@ class Home extends Component {
         this.setState((currentState) => ({
             glasses: currentState.glasses + 1, error: ''
         }));
-        this.logAction({type: this.CONST_TYPE_WATER, action: this.CONST_ACTION_INCREMENT, by: 1});
+        this.logAction({type: type.WATER, action: action.INCREMENT, by: 1});
     };
 
     handleOnWaterGlassesDecrement = () => {
@@ -59,10 +49,10 @@ class Home extends Component {
             let newState = {};
             currentState.glasses > 0 ?
                 newState = {glasses: currentState.glasses - 1, error: ''} :
-                newState = {error: 'You cannot dehydrate!'};
+                newState = {error: 'Please, Do not dehydrate!'};
             return newState;
         });
-        this.logAction({type: this.CONST_TYPE_WATER, action: this.CONST_ACTION_DECREMENT, by: 1});
+        this.logAction({type: type.WATER, action: action.DECREMENT, by: 1});
     };
 
     handleOnCalorieInTake = (calories) => {
@@ -74,7 +64,7 @@ class Home extends Component {
                 error: ''
             }));
         }
-        this.logAction({type: this.CONST_TYPE_CALORIE, action: this.CONST_ACTION_INCREMENT, by: calories});
+        this.logAction({type: type.CALORIE, action: action.INCREMENT, by: calories});
     };
 
     handleOnCalorieBurnt = (calories) => {
@@ -86,7 +76,7 @@ class Home extends Component {
                 newState = {error: 'hey c\'on, do not burn more than you eat'};
             return newState;
         });
-        this.logAction({type: this.CONST_TYPE_CALORIE, action: this.CONST_ACTION_DECREMENT, by: calories});
+        this.logAction({type: type.CALORIE, action: action.DECREMENT, by: calories});
     };
 
     logAction = (log) => {
@@ -97,17 +87,22 @@ class Home extends Component {
     };
 
     handleCloseShowLogs = () => {
-      this.setState({navBarOptionSelected: this.CONST_OPTIONS.NOT_SELECTED});
+      this.setState({navBarOptionSelected: Options.NOT_SELECTED});
     };
 
     doShowLogs = () => {
-        return this.state.navBarOptionSelected === this.CONST_OPTIONS.SHOW_LOGS;
+        return this.state.navBarOptionSelected === Options.SHOW_LOGS;
     };
 
     render() {
         return (
             <Layout>
-                {/*{this.state.error}*/}
+                <Snackbar
+                    open={this.state.error}
+                    message={this.state.error}
+                    autoHideDuration={4000}
+                    style={{backgroundColor: Colors.PRIMARY}}
+                />
                 {this.doShowLogs() && <Logs logs={this.state.logs} onClose={this.handleCloseShowLogs} open={this.doShowLogs}/>}
                 <NavBar value={this.state.navBarOptionSelected} onOptionSelected={this.handleNavBarOptionChanged}/>
                 <Water

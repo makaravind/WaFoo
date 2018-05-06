@@ -4,6 +4,7 @@ import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Avatar from 'material-ui/Avatar';
 import React from 'react';
+import {action, type} from "../index.constants";
 
 const waterIcon = require('../res/images/water.svg');
 const foodIcon = require('../res/images/food.svg');
@@ -17,14 +18,14 @@ class Logs extends React.Component {
         const getInfoByAction = (log) => {
             let info = {};
             switch(log.type) {
-                case "water":
-                    log.action === 'increment' ?
+                case type.WATER:
+                    log.action === action.DECREMENT ?
                         info = {'verb': 'Drank', 'metric': 'ml', 'performedBy': 'glass(s)'} :
                         info = {'verb': 'Lost', 'metric': 'ml', 'performedBy': 'glass(s)'};
                     info.icon = waterIcon;
                     break;
-                case "calorie":
-                    log.action === 'increment' ?
+                case type.CALORIE:
+                    log.action === action.INCREMENT ?
                         info = {'verb': 'Gained', 'metric': '', 'performedBy': 'calories'} :
                         info = {'verb': 'Burnt', 'metric': '', 'performedBy': 'calories'};
                     info.icon = foodIcon;
