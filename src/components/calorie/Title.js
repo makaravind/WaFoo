@@ -18,18 +18,16 @@ const Count = styled.h1`
     color: rgba(255,251,255,1);
 `;
 
-const Volume = styled.p`
+const Metric = styled.p`
     font-size: 1em;
     margin-top: auto;
     color: rgba(255,251,255,0.75);
 `;
 
-
-function Title({glasses}) {
+function Title({calories}) {
     return (
         <Layout>
-            <Count>{glasses}</Count>
-            <Volume>{glasses * settings.perGlassVolume} ml</Volume>
+            <Count>{calories} </Count><Metric>calories</Metric>
         </Layout>
     )
 }

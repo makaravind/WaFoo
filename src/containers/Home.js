@@ -67,10 +67,13 @@ class Home extends Component {
 
     handleOnCalorieInTake = (calories) => {
         console.log('calorie in take ', calories);
-        this.setState((currentstate) => ({
-            calories: currentstate.calories + calories,
-            error: ''
-        }));
+        {
+            calories >= 0 &&
+            this.setState((currentstate) => ({
+                calories: currentstate.calories + calories,
+                error: ''
+            }));
+        }
         this.logAction({type: this.CONST_TYPE_CALORIE, action: this.CONST_ACTION_INCREMENT, by: calories});
     };
 

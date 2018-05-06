@@ -5,13 +5,13 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 
-import {APP_TITLE} from '../index.constants';
+import {APP_TITLE, Colors} from '../index.constants';
 
 class NavBar extends Component {
     render() {
         return (
             <AppBar
-                style={{"gridColumn": "1/-1", backgroundColor: "#3F51B5"}}
+                style={{"gridColumn": "1/-1", backgroundColor: Colors.PRIMARY}}
                 title={<span>{APP_TITLE}</span>}
                 // onTitleClick={handleClick}
                 iconElementRight={<IconMenu

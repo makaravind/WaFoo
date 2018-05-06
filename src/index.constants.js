@@ -1,12 +1,12 @@
-import {blue800, blue900, yellowA400, amber700} from 'material-ui/styles/colors';
+import {deepPurple900 as primary, blue900, greenA200 as accent, yellow600 as cprimary, blue500 as wprimary} from 'material-ui/styles/colors';
 
 export const APP_TITLE = 'WaFoo...';
 export const Colors = {
-    PRIMARY: "",
-    PRIMARY_WATER: blue800,
+    PRIMARY: primary,
+    PRIMARY_WATER: wprimary,
     DARK_PRIMARY_WATER: blue900,
-    ACCENT: yellowA400,
-    PRIMARY_CALORIE: amber700
+    ACCENT: accent,
+    PRIMARY_CALORIE: cprimary
 };
 export const settings = {
     perGlassVolume: 250,
