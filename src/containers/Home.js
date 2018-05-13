@@ -120,17 +120,19 @@ class Home extends Component {
     };
 
     componentDidMount() {
-        const savedLogs = JSON.parse(localStorage.getItem('log')).sort((a, b) => a.timestamp > b.timestamp);
-        const initWaterCalorieState = this.calculateInitWaterCalorieStateFromSavedLogs(savedLogs);
-        if (this.state.logs.length <= 0 && savedLogs.length > 0) {
-            this.setState((currentState) => {
-                return {
-                    logs: savedLogs,
-                    glasses: initWaterCalorieState.water,
-                    calories: initWaterCalorieState.calories,
-                    error: 'Loaded logs from storage',
-                };
-            });
+        const savedLogs = JSON.parse(localStorage.getItem('log') || '[]').sort((a, b) => a.timestamp > b.timestamp);
+        if (savedLogs.length > 0) {
+            const initWaterCalorieState = this.calculateInitWaterCalorieStateFromSavedLogs(savedLogs);
+            if (this.state.logs.length <= 0 && savedLogs.length > 0) {
+                this.setState((currentState) => {
+                    return {
+                        logs: savedLogs,
+                        glasses: initWaterCalorieState.water,
+                        calories: initWaterCalorieState.calories,
+                        error: 'Loaded logs from storage',
+                    };
+                });
+            }
         }
     }
 
