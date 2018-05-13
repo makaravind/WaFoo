@@ -10,6 +10,8 @@ about your health. You are your boss 😎
 - Material-UI
 - Local Storage
 
+> And yeah, latest and greatest, CSS-GRID for layouts (I may have over used it, But I love it ❤)
+
 # Set up
 - cd wafoo
 - yarn start / npm start
@@ -17,3 +19,7 @@ about your health. You are your boss 😎
 # Contribution 
 This is a learner app which meant to provide best practices, and how to use libraries with React. If you think there is something
 missing, feel free to pull-request ❤
+
+# Sample App Images
+ - https://drive.google.com/open?id=10ckgkFAfxQ9XfO2vWrtj0gaSS2MRHfW-
+ - https://drive.google.com/open?id=1IsJLnclb5gGzCLtfyOaWNRVRXo2qTMDp
