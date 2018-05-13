@@ -4,6 +4,8 @@
 All information is stored in local storage, hence there is no one watching over your shoulders ( *coughs* mark zuckerberg )  
 about your health. You are your boss 😎
 
+#### [LIVE DEMO](https://makaravind.github.io/WaFoo/)
+
 # Stack (A complete UI web app)
 - React
 - Style Components
