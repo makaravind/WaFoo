@@ -1,5 +1,6 @@
+# [OUTDATED]
 # WaFoo(v1) 🍞 🍩 🍮 🍦 🍨 🍧 🎂 🍰 🍪 🍫 🍬 🍭 🍯 🍎 🍏 🍊 🍋 🍒 🍇 🍉 🍓 🍑 🍈 🍌
-## A "server-less" water and calorie tracker using react, styled-components, local storage
+### A "server-less" water and calorie tracker using react, styled-components, local storage 
 
 All information is stored in local storage, hence there is no one watching over your shoulders ( *coughs* mark zuckerberg )  
 about your health. You are your boss 😎
